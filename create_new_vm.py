@@ -7,8 +7,7 @@ from azure.mgmt.network import NetworkManagementClient
 from azure.mgmt.resource import ResourceManagementClient
 
 print(
-    "Provisioning a virtual machine...some operations might take a \
-minute or two."
+    "Provisioning a virtual machine."
 )
 
 # Acquire a credential object using CLI-based authentication.
@@ -27,7 +26,7 @@ resource_client = ResourceManagementClient(credential, subscription_id)
 # Constants we need in multiple places: the resource group name and
 # the region in which we provision resources. You can change these
 # values however you want.
-RESOURCE_GROUP_NAME = "PythonAzureExample-VM-rg"
+RESOURCE_GROUP_NAME = "Python-VM-Group"
 LOCATION = "westus2"
 
 # Provision the resource group.
@@ -52,11 +51,11 @@ print(
 # provision the NIC, after which we can provision the VM.
 
 # Network and IP address names
-VNET_NAME = "python-example-vnet"
-SUBNET_NAME = "python-example-subnet"
-IP_NAME = "python-example-ip"
-IP_CONFIG_NAME = "python-example-ip-config"
-NIC_NAME = "python-example-nic"
+VNET_NAME = "vnet"
+SUBNET_NAME = "subnet"
+IP_NAME = "ip"
+IP_CONFIG_NAME = "config"
+NIC_NAME = "nic"
 
 # Obtain the management object for networks
 network_client = NetworkManagementClient(credential, subscription_id)
@@ -67,7 +66,7 @@ poller = network_client.virtual_networks.begin_create_or_update(
     VNET_NAME,
     {
         "location": LOCATION,
-        "address_space": {"address_prefixes": ["10.0.0.0/16"]},
+        "address_space": {"address_prefixes": ["192.168.0.0/16"]},
     },
 )
 
@@ -83,7 +82,7 @@ poller = network_client.subnets.begin_create_or_update(
     RESOURCE_GROUP_NAME,
     VNET_NAME,
     SUBNET_NAME,
-    {"address_prefix": "10.0.0.0/24"},
+    {"address_prefix": "192.168.0/24"},
 )
 subnet_result = poller.result()
 
@@ -136,9 +135,9 @@ print(f"Provisioned network interface client {nic_result.name}")
 # Obtain the management object for virtual machines
 compute_client = ComputeManagementClient(credential, subscription_id)
 
-VM_NAME = "ExampleVM"
-USERNAME = "azureuser"
-PASSWORD = "ChangePa$$w0rd24"
+VM_NAME = "NewVM24"
+USERNAME = "user24"
+PASSWORD = "ParolaNoua24"
 
 print(
     f"Provisioning virtual machine {VM_NAME}; this operation might \
