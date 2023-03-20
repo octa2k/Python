@@ -27,7 +27,7 @@ resource_client = ResourceManagementClient(credential, subscription_id)
 # the region in which we provision resources. You can change these
 # values however you want.
 RESOURCE_GROUP_NAME = "Python-VM-Group"
-LOCATION = "westus2"
+LOCATION = "east1"
 
 # Provision the resource group.
 rg_result = resource_client.resource_groups.create_or_update(
@@ -145,7 +145,7 @@ take a few minutes."
 )
 
 # Provision the VM specifying only minimal arguments, which defaults
-# to an Ubuntu 18.04 VM on a Standard DS1 v2 plan with a public IP address
+# to an Ubuntu 22.04 VM on a Standard DS1 v2 plan with a public IP address
 # and a default virtual network/subnet.
 
 poller = compute_client.virtual_machines.begin_create_or_update(
@@ -157,7 +157,7 @@ poller = compute_client.virtual_machines.begin_create_or_update(
             "image_reference": {
                 "publisher": "Canonical",
                 "offer": "UbuntuServer",
-                "sku": "16.04.0-LTS",
+                "sku": "22.04.3-LTS",
                 "version": "latest",
             }
         },
